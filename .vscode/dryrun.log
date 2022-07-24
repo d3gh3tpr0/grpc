@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/kunic/grpc'
+protoc --go_out=pb --go-grpc_out=pb  proto/*.proto
+make: Leaving directory '/home/kunic/grpc'
+ 

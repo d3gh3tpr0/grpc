@@ -1,7 +1,7 @@
 package serializer_test
 
 import (
-	"mygrpc/pb/pb"
+	"mygrpc/pb"
 	"mygrpc/sample"
 	"mygrpc/serializer"
 	"testing"
@@ -14,6 +14,7 @@ func TestFileSerializer(t *testing.T) {
 	t.Parallel()
 
 	binaryFile := "../tmp/laptop.bin"
+	jsonFile := "../tmp/laptop.json"
 
 	laptop1 := sample.NewLaptop()
 	err := serializer.WriteProtobufToBinaryFile(laptop1, binaryFile)
@@ -23,4 +24,12 @@ func TestFileSerializer(t *testing.T) {
 	err = serializer.ReadProtobufFromBinaryFile(binaryFile, laptop2)
 	require.NoError(t, err)
 	require.True(t, proto.Equal(laptop1, laptop2))
+
+	err = serializer.WriteProtobufToJSONFile(jsonFile, laptop1)
+	require.NoError(t, err)
+
+	laptop3 := &pb.Laptop{}
+	err = serializer.ReadProtobufFromJSONFile(jsonFile, laptop3)
+	require.NoError(t, err)
+	require.True(t, proto.Equal(laptop1, laptop3))
 }

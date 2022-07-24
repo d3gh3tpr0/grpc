@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -21,7 +22,7 @@ func WriteProtobufToBinaryFile(message proto.Message, filename string) error {
 	return nil
 }
 
-func ReadProtobufFromBinaryFile(filename string, message proto.Message) error{
+func ReadProtobufFromBinaryFile(filename string, message proto.Message) error {
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return fmt.Errorf("cannot read binary data from file: %w", err)
@@ -36,5 +37,28 @@ func ReadProtobufFromBinaryFile(filename string, message proto.Message) error{
 }
 
 func WriteProtobufToJSONFile(filename string, message proto.Message) error {
-	
+	data, err := ProtobufToJSON(message)
+	if err != nil {
+		return fmt.Errorf("cannot marshal proto message to JSON : %w", err)
+	}
+
+	err = ioutil.WriteFile(filename, []byte(data), 0664)
+	if err != nil {
+		return fmt.Errorf("cannot write JSON data to file: %w", err)
+	}
+	return nil
+
+}
+
+func ReadProtobufFromJSONFile(filename string, message proto.Message) error {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return fmt.Errorf("cannot read data from json file: %w", err)
+	}
+
+	err = protojson.Unmarshal(data, message)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal binary to proto message: %w", err)
+	}
+	return nil
 }

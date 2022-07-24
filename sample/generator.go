@@ -1,7 +1,7 @@
 package sample
 
 import (
-	"mygrpc/pb/pb"
+	"mygrpc/pb"
 
 	"github.com/golang/protobuf/ptypes"
 )

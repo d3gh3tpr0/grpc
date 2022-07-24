@@ -2,10 +2,15 @@ package sample
 
 import (
 	"math/rand"
-	"mygrpc/pb/pb"
+	"mygrpc/pb"
+	"time"
 
 	"github.com/google/uuid"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 func randomKeyboardLayout() pb.Keyboard_Layout {
 	switch rand.Intn(3) {
@@ -66,8 +71,8 @@ func randomLaptopBrand() string {
 	return randomStringFromSet("Apple", "Dell", "Lenovo")
 }
 
-func randomLaptopName(brand string)string {
-	switch brand{
+func randomLaptopName(brand string) string {
+	switch brand {
 	case "Apple":
 		return randomStringFromSet("Maccbook Air", "Macbook Pro")
 	case "Dell":
