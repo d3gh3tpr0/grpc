@@ -110,6 +110,7 @@ func NewLaptop() *pb.Laptop {
 		Brand:    brand,
 		Name:     name,
 		Cpu:      NewCPU(),
+		Ram:      NewRAM(),
 		Gpus:     []*pb.GPU{NewGPU()},
 		Storages: []*pb.Storage{NewSSD(), NewHDD()},
 		Screen:   NewScreen(),
@@ -123,4 +124,8 @@ func NewLaptop() *pb.Laptop {
 	}
 
 	return laptop
+}
+
+func RandomLaptopScore() float64 {
+	return float64(randomInt(1, 10))
 }

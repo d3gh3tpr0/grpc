@@ -14,4 +14,3 @@ func ProtobufToJSON(message proto.Message) (string, error) {
     b, err := marshaler.Marshal(message)
     return string(b), err
 }
-
